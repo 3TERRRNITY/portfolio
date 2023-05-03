@@ -1,9 +1,24 @@
-import React from "react";
+import React, { useRef } from "react";
 import "./Contact.css";
 import { AiOutlineArrowRight, AiOutlineMail } from "react-icons/ai";
 import { TbBrandTelegram } from "react-icons/tb";
+import emailjs from "@emailjs/browser";
 
 const Contact = () => {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm(
+      "service_ulxyges",
+      "template_kbps8uv",
+      form.current,
+      "QwqDIHLAckTGJL4F-"
+    );
+    e.target.reset();
+  };
+
   return (
     <section className="contact section" id="contact">
       <h2 className="section__title">Get in touch</h2>
@@ -47,7 +62,7 @@ const Contact = () => {
         <div className="contact__content">
           <h3 className="contact__title">Write me your project</h3>
 
-          <form className="contact__form">
+          <form className="contact__form" ref={form} onSubmit={sendEmail}>
             <div className="contact__form-div">
               <label className="contact__form-tag">Name</label>
               <input
